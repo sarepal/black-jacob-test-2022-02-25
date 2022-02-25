@@ -1,0 +1,63 @@
+---
+layout: default
+excerpt: Browse annotations by tag.
+---
+<div class="container">
+  {% comment %}
+  Use tag name from data if we can, but use slug as fallback for display.
+  {% endcomment %}
+  {% if site.data.tags contains page.tag %}
+  {% assign tag_name = site.data.tags[page.tag].name %}
+  {% endif %}
+
+  <h1>Annotations tagged with {{ tag_name }}</h1>
+  {% if site.data.tags[page.tag] %}
+  {% assign sorted_annotations=site.annotations|sort: 'sort_order' %}
+  <div class="container">
+    {% for annotation in sorted_annotations %}
+
+    {% if annotation.tags contains page.tag %}
+    <div class="row my-4">
+      <div class="col">
+        {% assign annotated_page=site.volume_pages[annotation.page_index] %}
+        {% ifchanged %}<h4><a href="{{ site.baseurl }}{{ annotated_page.url }}">{{ annotated_page.title }}</a></h4>
+        {% endifchanged %}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-auto">
+        <div class="card" style="min-height: 200px;">
+          <div class="card-body text-end">
+            <a href="{{ site.baseurl }}{{ annotated_page.url }}" title="{{ annotated_page.title }}"
+              class="stretched-link link-dark">
+              <img src="{{annotated_page.images.small-thumbnail}}"
+                alt="{{annotated_page.short_label}} {{annotated_page.number}}" class="rounded mx-auto d-block" />
+            </a>
+            <div class="row">
+              <div class="col-4"></div>
+              <div class="col-4">
+                <h5 class="card-title text-center p-2" style="background-color: #ffffffad;">
+                  {{ annotated_page.short_label}} {{ annotated_page.number }}</h5>
+              </div>
+              <div class="col-4">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        {% include annotation_card.html %}
+      </div>
+    </div>
+    <div class="media-body" class="width:100%">
+      <a class="to-fullpage" href="{{ site.baseurl }}{{ annotation.url }}" title="full page annotation view"><i
+          class="fa fa-expand"></i></a>
+
+    </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+  {% else %}
+  <p>No annotations with this tag.</p>
+  {% endif %}
+</div>

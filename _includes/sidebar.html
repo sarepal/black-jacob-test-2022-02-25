@@ -1,0 +1,33 @@
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+  <div class="offcanvas-header">
+    <span class="offcanvas-title" id="offcanvasNavbarLabel"></span>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+      <li class="nav-item">
+        {{ site.description }}
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if page.url == site.baseurl %}active{% endif %}" href="{{ site.baseurl }}/" role="button">
+          Home
+        </a>
+      </li>
+      {% comment %}
+        The code below dynamically generates a sidebar nav of pages with
+        `layout: page` in the front-matter. See readme for usage.
+
+        Sort on page property `nav_order` to control order of display.
+      {% endcomment %}
+
+      {% assign pages_list = site.pages | sort:"nav_order" %}
+      {% for node in pages_list %}
+        {% if node.title != null and node.nav_order and node.layout == "page" %}
+          <li class="nav-item">
+            <a class="nav-link {% if page.url == node.url %}active{% endif %}" href="{{ site.baseurl }}{{ node.url }}">{{ node.title }}</a>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<section class="card mb-3 annotation-card" data-annotation-id="{{ annotation.annotation_id }}">
+  <section class="card-body">
+    <section class="text-end">
+      <a class="to-fullpage" href="{{ site.baseurl }}{{ annotation.url }}" title="full page annotation view"><i class="bi bi-arrows-angle-expand"></i></a>
+    </section>
+    <section>
+      {{ annotation.content }}
+    </section>
+  </section>
+  <section class="card-footer">
+    <span property="schema:author">{{ annotation.author }}</span>
+    {% if annotation.tags.size != 0 %}
+    <section class="annotator-tags">
+      <hr />
+      <i class="bi bi-tags-fill"></i>
+      {% for tag in annotation.tags %}
+      <a class="btn btn-secondary btn-sm" property="schema:keywords" href="{{ site.baseurl }}/tags/{{ tag }}/"> {{ site.data.tags[tag].name }}</a>
+      {% endfor %}
+    </section>
+    {% endif %}
+   </section>
+</section>

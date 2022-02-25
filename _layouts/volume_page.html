@@ -1,0 +1,82 @@
+---
+layout: default
+---
+<div id='ocr'></div>
+<article class="container volume-page">
+  <section class="row">
+    <section class="col text-center">
+      <h1>{{ page.title }}</h1>
+    </section>
+  </section>
+  <section class="row">
+
+    <section class="col-sm-8 container">
+      {% assign index = page.sort_order|minus:1 %}
+      {% assign prev_page = page.previous %}
+      {% assign next_page = page.next %}
+      <div class="row align-items-center">
+
+        <div class="col-sm-1">
+          {% if prev_page %}
+          <a class="fs-1 link-dark" href="{{ site.baseurl }}{{ prev_page.url }}" role="button" data-slide="prev"
+            title="Prev: {{ prev_page.title }}" rel="prev">
+            <i class="bi bi-chevron-compact-left"></i>
+          </a>
+          {% endif %}
+        </div>
+
+        <div id="seadragon-viewer" class="viewer col-sm-10"></div>
+
+        <div class="col-sm-1">
+          {% if next_page %}
+          <a class="fs-1 link-dark" href="{{ site.baseurl }}{{ next_page.url }}" role="button" data-slide="next"
+            title="Next: {{ next_page.title }}" rel="next">
+            <i class="bi bi-chevron-compact-right"></i>
+          </a>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+    <section class="col-sm-4 col-sm-1">
+      <aside style="height: 80vh;" class="overflow-auto">
+        {% if page.annotation_count != 0 %}
+        {% for annotation in site.annotations %}
+        {% if annotation.annotated_page == page.canvas_id %}
+        <section class="card mb-3 annotation-card" data-annotation-id="{{ annotation.annotation_id }}">
+          <section class="card-body">
+            <section class="text-end">
+              <a class="to-fullpage" href="{{ site.baseurl }}{{ annotation.url }}" title="full page annotation view"><i
+                  class="bi bi-arrows-angle-expand"></i></a>
+            </section>
+            <section>
+              {{ annotation.content }}
+            </section>
+          </section>
+          <section class="card-footer">
+            <span property="schema:author">{{ annotation.author }}</span>
+            {% if annotation.tags.size != 0 %}
+            <section class="annotator-tags">
+              <hr />
+              <i class="bi bi-tags-fill"></i>
+              {% for tag in annotation.tags %}
+              <a class="btn btn-secondary btn-sm" property="schema:keywords" href="{{ site.baseurl }}/tags/{{ tag }}/">
+                {{ site.data.tags[tag].name }}</a>
+              {% endfor %}
+            </section>
+            {% endif %}
+          </section>
+        </section>
+        {% endif %}
+        {% endfor %}
+        {% else %}
+        <span class="empty-item"></span>
+        {% endif %}
+      </aside>
+    </section>
+  </section>
+</article>
+
+<script type="text/javascript" charset="utf-8">
+  initViewer("{{page.images.tile_source}}", "{{page.canvas_height}}", "{{page.canvas_width}}", "{{site.baseurl}}",
+    "{{page.ocr}}", "{{page.annotation_overlay}}");
+</script>

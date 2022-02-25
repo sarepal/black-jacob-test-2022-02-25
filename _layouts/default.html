@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en-us" xmlns:schema="http://schema.org/" xmlns:og="http://ogp.me/ns#">
+  {% include head.html %}
+
+  <body typeof="schema:WebPage" class="sidebar-overlay">
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+      content to avoid any CSS collisions with our real content. -->
+      <div class="wrap">
+        <nav class="navbar navbar-light bg-light fixed-top">
+          <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="container">
+              <div class="text-center">
+                <a class="navbar-brand" href="{{ site.baseurl }}/">{{ site.title }}</a>
+              </div>
+            </div>
+            {% include sidebar.html %}
+          </div>
+        </nav>
+
+      <!--<div class="container content">  container styles messing up page view -->
+        <div class="container">
+        {{ content }}
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle">
+      <i class="fa fa-bars fa-lg"></i>
+    </label>
+  </body>
+</html>

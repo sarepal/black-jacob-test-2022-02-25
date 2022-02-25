@@ -1,0 +1,100 @@
+---
+---
+
+
+body {
+  padding-top: 80px;
+}
+
+.viewer {
+  height: 80vh;
+  // width: 100%;
+  font-size: 16px;
+
+  svg {
+    pointer-events: none;
+
+    g {
+      pointer-events: none;
+
+      path {
+        pointer-events: none;
+      }
+    }
+  }
+}
+
+.annotator-tags {
+  a.badge {
+    text-decoration: none;
+
+    &:hover {
+      color: white;
+      text-decoration: underline;
+    }
+  }
+}
+
+
+.viewer span {
+  color: transparent;
+}
+
+.openseadragon-canvas a {
+  background-color: rgba(255, 255, 0, .5);
+  color: transparent;
+
+  &.highlight-text-annotation {
+    background-color: rgba(49, 197, 40, .5);
+  }
+}
+
+.volume-page {
+  height: calc(100vh - 80px);
+}
+
+.comment-count {
+  display: inline-block;
+  position: relative;
+  min-width:25px;
+  height:20px;
+  margin:5px 5px 20px;
+  padding: 0 5px;
+  text-align:center;
+  color:#fff;
+  background:rgb(49, 197, 40);
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+a.comment-count:hover {
+  text-decoration: none;
+  color: white;
+}
+
+.page a.comment-count {
+  display: none;
+  margin-bottom: 0;
+}
+
+/* comment placement on page thumbnail */
+.page-thumbnail .comment-count {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.comment-count:before {
+  content:"";
+  position:absolute;
+  bottom:-14px;
+  right:2px;
+  border:8px solid transparent;
+  border-top-color: rgb(49, 197, 40);
+}
+
+.highlight-annotation {
+  background-color: yellow;
+}
